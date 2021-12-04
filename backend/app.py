@@ -6,7 +6,7 @@ from flask import Flask
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
 app = Flask(__name__)
-redis = Redis(host="host.docker.internal", port=6379)
+redis = Redis(host="redis-master.redis.svc.cluster.local", port=6379)
 
 
 @app.route("/increase/<amount>", methods=["POST"])

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-counter-backend
+  labels:
+    app: python-counter-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-counter-backend
+  template:
+    metadata:
+      labels:
+        app: python-counter-backend
+    spec:
+      containers:
+      - name: python-counter-backend
+        image: python-counter-backend:0.1.0
+        ports:
+        - containerPort: 8080
