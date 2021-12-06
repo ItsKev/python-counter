@@ -5,12 +5,14 @@ metadata:
   labels:
     app: python-counter-application
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       app: python-counter-application
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: python-counter-application
     spec:

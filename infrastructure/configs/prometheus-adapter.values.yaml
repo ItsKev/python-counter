@@ -1,0 +1,12 @@
+prometheus:
+  # Value is templated
+  url: http://prometheus.linkerd-viz.svc
+  port: 9090
+  path: ""
+
+rules:
+  default: false
+  custom:
+  - seriesQuery: 'request_total'
+    resources: { template: "<<.Resource>>" }
+    metricsQuery: 'irate(request_total{namespace="default", deployment="python-counter-backend", direction="inbound", target_port="8080"}[30s])'

@@ -11,6 +11,8 @@ spec:
       app: python-counter-backend
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: python-counter-backend
     spec:
