@@ -8,5 +8,6 @@ rules:
   default: false
   custom:
   - seriesQuery: 'request_total'
-    resources: { template: "<<.Resource>>" }
-    metricsQuery: 'irate(request_total{namespace="default", deployment="python-counter-backend", direction="inbound", target_port="8080"}[30s])'
+    resources: 
+      template: "<<.Resource>>"
+    metricsQuery: 'sum(irate(request_total{<<.LabelMatchers>>, direction="inbound", target_port="8080"}[30s])) by (<<.GroupBy>>)'
