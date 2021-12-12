@@ -8,6 +8,7 @@ helm repo update
 
 linkerd install | kubectl apply -f -
 linkerd viz install | kubectl apply -f -
+linkerd jaeger install | kubectl apply -f -
 
 kubectl create -f k8s/redis-namespace.yaml
 helm install redis --namespace redis bitnami/redis --values configs/redis-values.yaml
