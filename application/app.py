@@ -13,18 +13,18 @@ from opentelemetry.sdk.trace.export import (
 from opentelemetry.exporter.opencensus.trace_exporter import (
     OpenCensusSpanExporter,
 )
+from opentelemetry.propagate import set_global_textmap
+from opentelemetry.propagators.b3 import B3MultiFormat
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 
 trace.set_tracer_provider(TracerProvider(resource=Resource.create({"service.name": "python-counter-application"})))
 trace.get_tracer_provider().add_span_processor(
-    BatchSpanProcessor(ConsoleSpanExporter())
-)
-trace.get_tracer_provider().add_span_processor(
     BatchSpanProcessor(OpenCensusSpanExporter(endpoint="collector.linkerd-jaeger:55678"))
 )
 
 RequestsInstrumentor().instrument()
+set_global_textmap(B3MultiFormat())
 
 while True:
     random_number = random.randint(1, 50)
